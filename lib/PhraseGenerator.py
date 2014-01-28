@@ -90,7 +90,7 @@ class PhraseGenerator(object):
                         # and so was the previous one, on average we skip it,
                         # with only a small chance to keep it
                         if not (len(new_word) < 4 and (len(prev_word) < 4) and not random.randint(0,6)):
-                            word = new_word
+                            word = new_word.lower()
                             # Randomly we'll try to skip this word, but we set our previous match to this
                             # just in case we don't find a new one
                             if not random.randint(0,2):
