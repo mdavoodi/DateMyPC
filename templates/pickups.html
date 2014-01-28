@@ -1,0 +1,54 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='hearts.css') }}"/>
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+    .line{
+        margin: 20px;
+        background-color: white;
+        font-size: 25px;
+        border-style: double;
+    }
+</style>
+<script type=text/javascript>
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<script type="text/javascript">
+  $(function() {
+    var submit_form = function(e) {
+      $.getJSON($SCRIPT_ROOT + '/_generate', {},
+       function(data) {
+        $('#result').text(data.result);
+      });
+      return false;
+    };
+
+    $('#generate').bind('click', submit_form);
+
+    $('input[type=text]').bind('keydown', function(e) {
+      if (e.keyCode == 13) {
+        submit_form(e);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+	<h1 class="text-center">Welcome to the Pickup Line Generator!</h1>
+	<div class="bs-example" style="text-align:center">
+        <p id="result" class="line">?</p>
+	</div>
+    <div style="text-align:center">
+	   <button type="button" id="generate" class="btn btn-default btn-lg" onclick="next();">Load</button>
+    </div>
+	<div class="after">
+	</div>
+</body>
+</html>
